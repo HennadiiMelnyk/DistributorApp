@@ -1,33 +1,37 @@
-﻿using DistributorApp.Services;
+using DistributorApp.Factories;
+using DistributorApp.Services;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace DistributorApp.Tests.Services;
+namespace DistributorApp.Tests;
 
 /// <summary>
-/// Contains tests for <see cref="IDrinkManager"/>
+/// Contains test for <see cref="IDrinkManager"/>
 /// </summary>
-
 public class DrinkManagerTests
 {
     private IDrinkManager _drinkManager;
-    
+    private DrinkManagerFactory _drinkManagerFactory;
+
     [SetUp]
-    public void SetUp()
+    public void Setup()
     {
-        _drinkManager = Substitute.For<IDrinkManager>();
+        _drinkManagerFactory = Substitute.For<DrinkManagerFactory>();
+        _drinkManager = new DrinkManager(_drinkManagerFactory);
     }
 
-    //[TestCase("Chocolate")]
     [Test]
-    public void CreateChocolateDrink()
+    public void TestGetChocolateDrinkPrice()
     {
         // Arrange 
-        var chocolateDrink = "";
+        var chocolateDrink = "Chocolate";
+        var expectedPrice = 5.33m;
+
         // Act
         var chocolatePrice = _drinkManager.CalculateDrinkPrice(chocolateDrink);
-        // Assert
-        //Assert.That(chocolatePrice, Is.Not.Null);
 
+        // Assert
+        Assert.That(chocolatePrice, Is.EqualTo(expectedPrice));
+        Assert.Pass();
     }
 }
