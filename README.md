@@ -1,4 +1,4 @@
-# Distributor app
+# Distributor Hot Drink App
 
 It uses:
 - .NET 6 for backend
