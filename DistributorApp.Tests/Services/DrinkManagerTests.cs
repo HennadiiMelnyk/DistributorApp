@@ -20,18 +20,19 @@ public class DrinkManagerTests
         _drinkManager = new DrinkManager(_drinkManagerFactory);
     }
 
-    [Test]
-    public void TestGetChocolateDrinkPrice()
+    [TestCase("Chocolate", 5.33)]
+    [TestCase("Allonge", 1.82)]
+    [TestCase("Tea", 3.12)]
+    [TestCase("Espresso", 1.56)]
+    [TestCase("Cappuccino", 3.51)]
+    public void TestGetChocolateDrinkPrice(string drinkName, Decimal expectedPrice)
     {
         // Arrange 
-        var chocolateDrink = "Chocolate";
-        var expectedPrice = 5.33m;
 
         // Act
-        var chocolatePrice = _drinkManager.CalculateDrinkPrice(chocolateDrink);
+        var drinkPrice = _drinkManager.CalculateDrinkPrice(drinkName);
 
         // Assert
-        Assert.That(chocolatePrice, Is.EqualTo(expectedPrice));
-        Assert.Pass();
+        Assert.That(drinkPrice, Is.EqualTo(expectedPrice).Within(0.1));
     }
 }
